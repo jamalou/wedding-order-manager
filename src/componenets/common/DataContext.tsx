@@ -5,7 +5,7 @@ import api from "./api";
 import { set } from "react-hook-form";
 import { CanceledError } from "axios";
 import OrderItem from "../../types/orderItem";
-
+import { useNavigate } from "react-router-dom";
 interface DataContextType {
   orders: Order[];
   loadingOrders: boolean;
@@ -75,6 +75,8 @@ export const DataProvider = ({ children }: Props) => {
   const [errorProducts, setErrorProducts] = useState<string | null>(null);
   const [errorItems, setErrorItems] = useState<string | null>(null);
 
+  const navigate = useNavigate(); // Hook to get the navigate function
+
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -138,7 +140,22 @@ export const DataProvider = ({ children }: Props) => {
   };
 
   const deleteOrder = async (orderId: string) => {
-    setOrders(orders.filter((order) => order.id !== orderId));
+    setLoadingOrders(true);
+    navigate("/orders");
+    if (!window.confirm("Voulez-vous vraiment supprimer cette commande?")) {
+      console.log("La suppression de la commande est annulée.");
+      return;
+    }
+    api
+      .delete(`/orders/${orderId}`)
+      .then((response) => {
+        orderId = response.data.id;
+        setOrders((prev) => prev.filter((order) => order.id !== orderId));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    setLoadingOrders(false);
   };
 
   const exportOrder = (orderId: string) => {

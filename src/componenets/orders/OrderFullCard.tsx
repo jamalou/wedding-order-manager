@@ -13,13 +13,15 @@ import Order, {
   infos_order_all,
   values_order_necessary,
 } from "../../types/order";
-
+import { useNavigate } from "react-router-dom";
 interface Props {
   order: Order;
+  deleteOrder: (id: string) => void;
   exportOrder: (id: string) => void;
 }
 
-const OrderFullCard = ({ order, exportOrder }: Props) => {
+const OrderFullCard = ({ order, deleteOrder, exportOrder }: Props) => {
+  const navigate = useNavigate();
   return (
     <>
       <Heading as="h1" size="xl" textAlign="center" mb={5}>
@@ -74,6 +76,7 @@ const OrderFullCard = ({ order, exportOrder }: Props) => {
                   leftIcon={<DeleteIcon />}
                   colorScheme="red"
                   variant="solid"
+                  onClick={() => deleteOrder(order.id ?? "")}
                   m={2}
                 >
                   Supprimer

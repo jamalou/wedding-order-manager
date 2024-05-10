@@ -28,6 +28,7 @@ function App() {
 
           <GridItem area="main">
             <Routes>
+              <Route path="/" element={<OrderGrid />} />
               <Route path="/orders" element={<OrderGrid />} />
               <Route path="/products" element={<ProductPage />} />
               <Route path="/orders/:orderId" element={<OrderDetailsPage />} />

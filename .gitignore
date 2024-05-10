@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# firebase
+firebase.json
+firebase-debug.log
+firebase-debug.log*
+.firebaserc
+.firebase/*

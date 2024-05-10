@@ -15,7 +15,6 @@ import OrderFullCard from "./OrderFullCard";
 import { DataContext } from "../common/DataContext";
 import AddItemForm from "../items/AddItemForm";
 import Order from "../../types/order";
-import { set } from "react-hook-form";
 
 const OrderDetailsPage = () => {
   const { orderId } = useParams(); // Get the order ID from URL parameters
@@ -31,6 +30,7 @@ const OrderDetailsPage = () => {
     addOrderItem,
     deleteOrderItem,
     loadingItems,
+    deleteOrder,
     exportOrder,
   } = useContext(DataContext);
   const [order, setOrder] = useState<Order | null>(null);
@@ -107,7 +107,11 @@ const OrderDetailsPage = () => {
 
   return (
     <>
-      <OrderFullCard order={order} exportOrder={exportOrder} />
+      <OrderFullCard
+        order={order}
+        exportOrder={exportOrder}
+        deleteOrder={deleteOrder}
+      />
       <OrderItemsPanel orderItems={orderItems} onDeleteItem={deleteItem} />
       {loadingItems && (
         <Box display="flex" justifyContent="center" alignItems="center">

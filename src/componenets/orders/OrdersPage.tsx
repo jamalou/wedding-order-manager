@@ -40,7 +40,6 @@ const OrdersPage = () => {
     addOrder(data);
     setIsSubmitting(false);
     onClose();
-    navigate("/orders"); // Navigate to the orders page
   };
 
   if (loadingOrders) {
@@ -82,6 +81,17 @@ const OrdersPage = () => {
       <HStack justifyContent="center" padding="10px">
         <Button onClick={onOpen}>Créer une commande</Button>
       </HStack>
+
+      {isSubmitting && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
+          <Spinner size="xl" />
+        </Box>
+      )}
 
       <AddOrderForm
         onSubmit={handleSubmit}
