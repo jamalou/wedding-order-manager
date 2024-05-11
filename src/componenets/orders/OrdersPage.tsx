@@ -2,13 +2,6 @@ import {
   Box,
   Button,
   HStack,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   SimpleGrid,
   Spinner,
   Text,
@@ -19,7 +12,6 @@ import Order from "../../types/order";
 import OrderCard from "./OrderCard";
 import { DataContext } from "../common/DataContext";
 import AddOrderForm from "./AddOrderForm";
-import api from "../common/api";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -27,7 +19,7 @@ interface Props {
 }
 
 const OrdersPage = () => {
-  const { orders, addOrder, updateOrder, loadingOrders, errorOrders } =
+  const { orders, addOrder, loadingOrders, errorOrders } =
     useContext(DataContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();

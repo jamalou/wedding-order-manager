@@ -6,6 +6,7 @@ import {
   Text,
   VStack,
   useBreakpointValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useContext, useMemo, useState } from "react";
 import ProductList from "./ProductList";
@@ -16,7 +17,7 @@ import ProductImportButton from "./ProductImportButton";
 const ProductPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { products, loadingProducts, errorProducts, addProduct } =
     useContext(DataContext);
 
@@ -78,6 +79,9 @@ const ProductPage = () => {
       >
         <VStack spacing={4}>
           <ProductImportButton />
+          <Button colorScheme="blue" onClick={onOpen} mt={4}>
+            Ajouter un produit
+          </Button>
           <Text fontWeight="bold" fontSize={fontSize} mb={2}>
             Nos Produits:
           </Text>
@@ -90,26 +94,14 @@ const ProductPage = () => {
             mb={4}
           />
           <ProductList products={filteredProducts} />
-          {!showForm && (
-            <Button
-              colorScheme="blue"
-              onClick={() => setShowForm(!showForm)}
-              mt={4}
-            >
-              Ajouter un produit
-            </Button>
-          )}
-          {showForm && (
-            <Box mt={4}>
-              <AddProductForm
-                onSubmit={(data) => {
-                  addProduct({ ...data, id: `${products.length + 1}` });
-                  setShowForm(!showForm);
-                }}
-                onCancelAddProduct={() => setShowForm(!showForm)}
-              />
-            </Box>
-          )}
+          <AddProductForm
+            onSubmit={(data) => {
+              addProduct({ ...data, id: `${products.length + 1}` });
+            }}
+            isOpen={isOpen}
+            onOpen={onOpen}
+            onClose={onClose}
+          />
         </VStack>
       </Box>
     </>
