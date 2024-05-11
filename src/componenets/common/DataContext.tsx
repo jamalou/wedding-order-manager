@@ -181,8 +181,20 @@ export const DataProvider = ({ children }: Props) => {
         console.error(error);
       });
   };
-  const addProduct = async (newProduct: Product) =>
-    setProducts([...products, newProduct]);
+  const addProduct = async (newProduct: Product) => {
+    api
+      .post("/products", newProduct)
+      .then((response) => {
+        setProducts((prev) => [...prev, response.data.product]);
+      })
+      .catch((error) => {
+        setErrorOrders(
+          "Une erreur s'est produite lors de l'ajout de la commande. Kallam Hamma. Hay l'erreur: \n" +
+            error
+        );
+      });
+  };
+
   const updateProduct = async (updatedProduct: Product) =>
     setProducts(
       products.map((product) =>

@@ -95,9 +95,7 @@ const ProductPage = () => {
           />
           <ProductList products={filteredProducts} />
           <AddProductForm
-            onSubmit={(data) => {
-              addProduct({ ...data, id: `${products.length + 1}` });
-            }}
+            onSubmit={addProduct}
             isOpen={isOpen}
             onOpen={onOpen}
             onClose={onClose}
