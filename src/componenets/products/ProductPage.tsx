@@ -20,28 +20,6 @@ const ProductPage = () => {
   const { products, loadingProducts, errorProducts, addProduct } =
     useContext(DataContext);
 
-  if (errorProducts) {
-    return (
-      <Text color="red.500" textAlign="center">
-        {errorProducts}{" "}
-        <span role="img" aria-label="Crying face">
-          😢
-        </span>
-      </Text>
-    );
-  }
-  if (loadingProducts) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
-        <Spinner size="xl" />
-      </Box>
-    );
-  }
   // Example of using useBreakpointValue
   const inputWidth = useBreakpointValue({
     base: "300px",
@@ -66,6 +44,29 @@ const ProductPage = () => {
   const filteredProducts = sortedProducts.filter((product) =>
     product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (errorProducts) {
+    return (
+      <Text color="red.500" textAlign="center">
+        {errorProducts}{" "}
+        <span role="img" aria-label="Crying face">
+          😢
+        </span>
+      </Text>
+    );
+  }
+  if (loadingProducts) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
+        <Spinner size="xl" />
+      </Box>
+    );
+  }
 
   return (
     <>

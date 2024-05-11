@@ -49,14 +49,4 @@ const OrderItemRow = ({ orderItem, onDelete }: Props) => {
   );
 };
 
-{
-  /* <Button
-          variant="outline"
-          colorScheme="blue"
-          onClick={() => console.log(orderItem.product_id)}
-          //   onClick={() => onDeleteorderItem(orderItem.id)}
-        >
-          Update
-        </Button> */
-}
 export default OrderItemRow;

@@ -149,7 +149,6 @@ export const DataProvider = ({ children }: Props) => {
     setLoadingOrders(true);
     navigate("/orders");
     if (!window.confirm("Voulez-vous vraiment supprimer cette commande?")) {
-      console.log("La suppression de la commande est annulée.");
       return;
     }
     api

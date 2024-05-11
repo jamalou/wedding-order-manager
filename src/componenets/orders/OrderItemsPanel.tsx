@@ -1,12 +1,7 @@
-import { Box, Button, Text } from "@chakra-ui/react";
-import AddItemForm from "../items/AddItemForm";
+import { Box, Text } from "@chakra-ui/react";
 
 import OrderItem from "../../types/orderItem";
 import OrderItemsList from "../items/OrderItemsList";
-
-import Product from "../../types/product";
-import { useContext, useState } from "react";
-import { DataContext } from "../common/DataContext";
 interface Props {
   orderItems: OrderItem[] | undefined;
   onDeleteItem: (itemId: string) => void;

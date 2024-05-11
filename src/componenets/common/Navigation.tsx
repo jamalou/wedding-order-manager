@@ -11,20 +11,12 @@ const Navigation = () => {
     <HStack justifyContent="start" padding="10px">
       <Image src={logo} boxSize="50px"></Image>
       <Link to="/orders">
-        <Button
-          variant="link"
-          fontSize="xl"
-          onClick={() => console.log("commandes")}
-        >
+        <Button variant="link" fontSize="xl">
           Commandes
         </Button>
       </Link>
       <Link to="/products">
-        <Button
-          variant="link"
-          fontSize="xl"
-          onClick={() => console.log("produits")}
-        >
+        <Button variant="link" fontSize="xl">
           Produits
         </Button>
       </Link>

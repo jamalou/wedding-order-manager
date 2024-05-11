@@ -57,7 +57,6 @@ const OrderCard = ({ order }: Props) => {
           colorScheme="teal"
           mt={4}
           onClick={() => {
-            console.log("Clicked on order card ", order.id);
             navigate(`/orders/${String(order.id)}`);
           }}
         >

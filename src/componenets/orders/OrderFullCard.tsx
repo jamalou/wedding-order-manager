@@ -13,7 +13,6 @@ import Order, {
   infos_order_all,
   values_order_necessary,
 } from "../../types/order";
-import { useNavigate } from "react-router-dom";
 interface Props {
   order: Order;
   deleteOrder: (id: string) => void;
@@ -21,7 +20,6 @@ interface Props {
 }
 
 const OrderFullCard = ({ order, deleteOrder, exportOrder }: Props) => {
-  const navigate = useNavigate();
   return (
     <>
       <Heading as="h1" size="xl" textAlign="center" mb={5}>

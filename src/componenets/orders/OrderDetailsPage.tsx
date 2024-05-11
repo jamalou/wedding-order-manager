@@ -26,6 +26,7 @@ const OrderDetailsPage = () => {
   } = useDisclosure();
   const {
     products,
+    fetchOrders,
     orders,
     addOrderItem,
     deleteOrderItem,
@@ -37,6 +38,10 @@ const OrderDetailsPage = () => {
   const [orderItems, setOrderItems] = useState<OrderItem[] | undefined>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    if (orders.length === 0) fetchOrders();
+    fetchOrderById(orderId);
+  }, [orderId]); // Fetch order details when orderId changes
 
   const fetchOrderById = async (orderId: string | undefined) => {
     setLoading(true);
@@ -49,10 +54,6 @@ const OrderDetailsPage = () => {
     }
     setError("Commande introuvable");
   };
-
-  useEffect(() => {
-    fetchOrderById(orderId);
-  }, [orderId]); // Fetch order details when orderId changes
 
   if (loading) {
     return (
@@ -97,11 +98,9 @@ const OrderDetailsPage = () => {
   const deleteItem = async (itemId: string) => {
     if (orderId) {
       if (!window.confirm("Voulez-vous vraiment supprimer cet article?")) {
-        console.log("La suppression de l'article est annulée.");
         return;
       }
       await deleteOrderItem(orderId, itemId, setOrder, setOrderItems);
-      console.log("Suppression de l'article. ce qui reste: ", orderItems);
     }
   };
 
