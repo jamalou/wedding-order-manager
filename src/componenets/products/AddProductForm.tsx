@@ -21,16 +21,12 @@ const schema = z.object({
     .number({ invalid_type_error: "Le prix est requis" })
     .min(0.01)
     .max(100_000),
-  product_status: z.enum(["Disponible", "Indisponible"], {
-    errorMap: () => ({ message: "Selectionnez un status s'il vous plais" }),
-  }),
   product_category: z.enum(["Sucré", "Salé"], {
     errorMap: () => ({ message: "Selectionnez une catégorie s'il vous plais" }),
   }),
   product_piece_per_kilo: z.number({
     invalid_type_error: "Le nombre de pièces est requis'",
   }),
-  product_image_url: z.string(),
 });
 type AddProductFormData = z.infer<typeof schema>;
 
@@ -98,25 +94,6 @@ const AddProductForm = ({
             </FormErrorMessage>
           </FormControl>
 
-          <FormControl isInvalid={!!errors.product_status} mb={3}>
-            <FormLabel htmlFor="product_status">Status du produit</FormLabel>
-            <Select
-              id="product_status"
-              {...register("product_status")}
-              value={product?.product_status}
-            >
-              <option value=""></option>
-              {["Disponible", "Indisponible"].map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </Select>
-            <FormErrorMessage>
-              {errors.product_status?.message}
-            </FormErrorMessage>
-          </FormControl>
-
           <FormControl isInvalid={!!errors.product_category} mb={3}>
             <FormLabel htmlFor="product_category">Catégorie</FormLabel>
             <Select
@@ -133,19 +110,6 @@ const AddProductForm = ({
             </Select>
             <FormErrorMessage>
               {errors.product_category?.message}
-            </FormErrorMessage>
-          </FormControl>
-
-          <FormControl isInvalid={!!errors.product_image_url} mb={3}>
-            <FormLabel htmlFor="product_image_url">URL de l'image</FormLabel>
-            <Input
-              id="product_image_url"
-              type="text"
-              {...register("product_image_url")}
-              value={product?.product_image_url}
-            />
-            <FormErrorMessage>
-              {errors.product_image_url?.message}
             </FormErrorMessage>
           </FormControl>
 

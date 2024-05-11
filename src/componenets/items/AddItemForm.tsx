@@ -3,7 +3,6 @@ import {
   Button,
   Input,
   Text,
-  Heading,
   HStack,
   RadioGroup,
   Stack,
@@ -15,7 +14,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  UnorderedList,
 } from "@chakra-ui/react";
 
 import OrderItem from "../../types/orderItem";

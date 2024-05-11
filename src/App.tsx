@@ -2,13 +2,8 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 import "./App.css";
 import Navigation from "./componenets/common/Navigation";
 import OrderGrid from "./componenets/orders/OrdersPage";
-import OrderPage from "./componenets/orders/OrderDetailsPage";
-import OrderItemCard from "./componenets/items/OrderItemRow";
-import OrderItemsList from "./componenets/items/OrderItemsList";
 import ProductPage from "./componenets/products/ProductPage";
-import { useState } from "react";
 import OrderDetailsPage from "./componenets/orders/OrderDetailsPage";
-import { order_ex, products_ex } from "./data/examples";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { DataProvider } from "./componenets/common/DataContext";
 

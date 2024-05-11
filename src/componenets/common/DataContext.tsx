@@ -1,4 +1,10 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import Order from "../../types/order";
 import Product from "../../types/product";
 import api from "./api";
@@ -33,6 +39,7 @@ interface DataContextType {
     setOrder: React.Dispatch<React.SetStateAction<Order | null>>,
     setOrderItems: React.Dispatch<React.SetStateAction<OrderItem[] | undefined>>
   ) => Promise<void>;
+  setProducts: Dispatch<SetStateAction<Product[]>>;
   addProduct: (product: Product) => Promise<void>;
   updateProduct: (product: Product) => Promise<void>;
   deleteProduct: (productId: string) => Promise<void>;
@@ -55,6 +62,7 @@ const defaultContext: DataContextType = {
   exportOrder: async () => {},
   addOrderItem: async () => {},
   deleteOrderItem: async () => {},
+  setProducts: async () => {},
   addProduct: async () => {},
   updateProduct: async () => {},
   deleteProduct: async () => {},
@@ -175,7 +183,7 @@ export const DataProvider = ({ children }: Props) => {
   };
   const addProduct = async (newProduct: Product) =>
     setProducts([...products, newProduct]);
-  const updateProduct = async (updatedProduct: any) =>
+  const updateProduct = async (updatedProduct: Product) =>
     setProducts(
       products.map((product) =>
         product.id === updatedProduct.id ? updatedProduct : product
@@ -267,6 +275,7 @@ export const DataProvider = ({ children }: Props) => {
         exportOrder,
         addOrderItem,
         deleteOrderItem,
+        setProducts,
         addProduct,
         updateProduct,
         deleteProduct,

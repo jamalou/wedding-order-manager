@@ -3,8 +3,7 @@ interface Product {
     id?: string;
     product_name: string;
     product_category: string;
-    product_status: string;
-    product_image_url: string;
+    product_image_url?: string;
     product_price: number;
     product_piece_per_kilo: number;
 }
