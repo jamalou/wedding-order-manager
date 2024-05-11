@@ -1,8 +1,3 @@
-/*import React from "react";
-import { NavLink as RouterLink } from "react-router-dom";
-import { Flex, Link, Box } from "@chakra-ui/react";
-import { HStack, Image, Text } from "@chakra-ui/react";*/
-
 import { Button, HStack, Image } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.jpg";

@@ -8,8 +8,6 @@ import React, {
 import Order from "../../types/order";
 import Product from "../../types/product";
 import api from "./api";
-import { set } from "react-hook-form";
-import { CanceledError } from "axios";
 import OrderItem from "../../types/orderItem";
 import { useNavigate } from "react-router-dom";
 interface DataContextType {

@@ -15,7 +15,6 @@ import { DataContext } from "../common/DataContext";
 import ProductImportButton from "./ProductImportButton";
 
 const ProductPage = () => {
-  const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { products, loadingProducts, errorProducts, addProduct } =

@@ -1,8 +1,6 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import ProductRow from "./ProductRow";
 import Product from "../../types/product";
-import AddProductForm from "./AddProductForm";
-import { useState } from "react";
 
 interface Props {
   products: Product[];
