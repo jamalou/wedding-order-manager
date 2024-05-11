@@ -7,7 +7,7 @@ import {
   VStack,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import ProductList from "./ProductList";
 import AddProductForm from "./AddProductForm";
 import { DataContext } from "../common/DataContext";
@@ -19,11 +19,6 @@ const ProductPage = () => {
 
   const { products, loadingProducts, errorProducts, addProduct } =
     useContext(DataContext);
-
-  // Filter products based on the search term
-  const filteredProducts = products.filter((product) =>
-    product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   if (errorProducts) {
     return (
@@ -54,6 +49,23 @@ const ProductPage = () => {
     md: "500px",
   });
   const fontSize = useBreakpointValue({ base: "20px", md: "22px", lg: "24px" });
+
+  // Sort products by product_category and product_name
+  const sortedProducts = useMemo(() => {
+    return products.sort((a, b) => {
+      // Compare by product_category first
+      if (a.product_category < b.product_category) return -1;
+      if (a.product_category > b.product_category) return 1;
+
+      // If product_category is the same, then sort by product_name
+      return a.product_name.localeCompare(b.product_name);
+    });
+  }, [products]);
+
+  // Filter products based on the search term
+  const filteredProducts = sortedProducts.filter((product) =>
+    product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
