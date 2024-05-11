@@ -26,7 +26,7 @@ interface DataContextType {
   addOrder: (order: Order) => Promise<void>;
   updateOrder: (order: Order) => Promise<void>;
   deleteOrder: (orderId: string) => Promise<void>;
-  exportOrder: (orderId: string) => void;
+  exportOrder: (orderId: string, orderName: string) => void;
   addOrderItem: (
     orderId: string,
     orderItem: OrderItem,
@@ -166,14 +166,14 @@ export const DataProvider = ({ children }: Props) => {
     setLoadingOrders(false);
   };
 
-  const exportOrder = (orderId: string) => {
+  const exportOrder = (orderId: string, orderName: string) => {
     api
       .get(`/orders/export-excel/${orderId}`, { responseType: "blob" })
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", `order_${orderId}.xlsx`);
+        link.setAttribute("download", `order_${orderName}.xlsx`);
         document.body.appendChild(link);
         link.click();
       })

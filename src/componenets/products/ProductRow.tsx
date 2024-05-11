@@ -9,7 +9,6 @@ interface Props {
 
 const ProductRow = ({ product }: Props) => {
   const [currentProduct, setCurrentProduct] = useState<Product>(product);
-  console.log(currentProduct);
   return (
     <Tr key={currentProduct.id}>
       <Td>

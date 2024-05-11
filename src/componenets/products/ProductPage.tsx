@@ -1,4 +1,12 @@
-import { Box, Button, Input, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Input,
+  Spinner,
+  Text,
+  VStack,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import ProductList from "./ProductList";
 import AddProductForm from "./AddProductForm";
@@ -39,42 +47,58 @@ const ProductPage = () => {
       </Box>
     );
   }
+  // Example of using useBreakpointValue
+  const inputWidth = useBreakpointValue({
+    base: "300px",
+    sm: "400px",
+    md: "500px",
+  });
+  const fontSize = useBreakpointValue({ base: "20px", md: "22px", lg: "24px" });
+
   return (
     <>
-      <Box borderWidth="10px" borderRadius="lg" mx={5} my={4} p={4}>
-        <ProductImportButton />
-        <Text fontWeight="bold" fontSize={24} mb={2}>
-          Nos Produits:
-        </Text>
-        <Box borderBottom="5px solid" mb={2} />
-        <Input
-          maxWidth="500px"
-          placeholder="Rechercher un produit..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          mb={4}
-        />
-        {filteredProducts && <ProductList products={filteredProducts} />}
-        {!showForm && (
-          <Button
-            colorScheme="blue"
-            onClick={() => setShowForm(!showForm)}
-            mt={4}
-          >
-            Ajouter un produit
-          </Button>
-        )}
-        {showForm && (
-          <Box mt={4}>
-            <AddProductForm
-              onSubmit={(data) => {
-                addProduct({ ...data, id: `${products.length + 1}` });
-                setShowForm(!showForm);
-              }}
-              onCancelAddProduct={() => setShowForm(!showForm)}
-            />
-          </Box>
-        )}
+      <Box
+        borderWidth="10px"
+        borderRadius="lg"
+        mx={[2, 3, 5]}
+        my={4}
+        p={[2, 3, 4]}
+      >
+        <VStack spacing={4}>
+          <ProductImportButton />
+          <Text fontWeight="bold" fontSize={fontSize} mb={2}>
+            Nos Produits:
+          </Text>
+          <Box borderBottom="5px solid" mb={2} />
+          <Input
+            maxWidth={inputWidth}
+            placeholder="Rechercher un produit..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            mb={4}
+          />
+          <ProductList products={filteredProducts} />
+          {!showForm && (
+            <Button
+              colorScheme="blue"
+              onClick={() => setShowForm(!showForm)}
+              mt={4}
+            >
+              Ajouter un produit
+            </Button>
+          )}
+          {showForm && (
+            <Box mt={4}>
+              <AddProductForm
+                onSubmit={(data) => {
+                  addProduct({ ...data, id: `${products.length + 1}` });
+                  setShowForm(!showForm);
+                }}
+                onCancelAddProduct={() => setShowForm(!showForm)}
+              />
+            </Box>
+          )}
+        </VStack>
       </Box>
     </>
   );

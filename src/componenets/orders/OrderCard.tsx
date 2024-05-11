@@ -6,6 +6,7 @@ import {
   CardBody,
   HStack,
   Heading,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import Order, {
@@ -26,7 +27,11 @@ const OrderCard = ({ order }: Props) => {
         <Heading my={4} fontSize="2xl">
           {order.order_name}
         </Heading>
-        <HStack my={4} justifyContent="space-between">
+        <Stack
+          direction={{ base: "column", md: "row" }}
+          spacing={4}
+          justifyContent="space-between"
+        >
           <Box>
             {infos_order_necessary.map((info) => (
               <HStack key={info} justifyContent="space-between">
@@ -47,9 +52,10 @@ const OrderCard = ({ order }: Props) => {
               </HStack>
             ))}
           </Box>
-        </HStack>
+        </Stack>
         <Button
           colorScheme="teal"
+          mt={4}
           onClick={() => {
             console.log("Clicked on order card ", order.id);
             navigate(`/orders/${String(order.id)}`);

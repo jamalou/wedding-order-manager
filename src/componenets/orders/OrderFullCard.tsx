@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   order: Order;
   deleteOrder: (id: string) => void;
-  exportOrder: (id: string) => void;
+  exportOrder: (id: string, name: string) => void;
 }
 
 const OrderFullCard = ({ order, deleteOrder, exportOrder }: Props) => {
@@ -61,13 +61,18 @@ const OrderFullCard = ({ order, deleteOrder, exportOrder }: Props) => {
                   </HStack>
                 ))}
               </Box>
-              <Box h="100%" />
-              <HStack justifyContent="space-between">
+              <Box />
+              <Stack
+                direction={{ base: "column", md: "column", lg: "row" }}
+                spacing={4}
+                justifyContent="space-between"
+              >
                 <Button
                   leftIcon={<EditIcon />}
                   colorScheme="blue"
                   variant="solid"
                   m={2}
+                  maxWidth="200px"
                 >
                   Modifier
                 </Button>
@@ -78,6 +83,7 @@ const OrderFullCard = ({ order, deleteOrder, exportOrder }: Props) => {
                   variant="solid"
                   onClick={() => deleteOrder(order.id ?? "")}
                   m={2}
+                  maxWidth="200px"
                 >
                   Supprimer
                 </Button>
@@ -85,15 +91,16 @@ const OrderFullCard = ({ order, deleteOrder, exportOrder }: Props) => {
                 <Button
                   leftIcon={<DownloadIcon />}
                   onClick={() => {
-                    exportOrder(order.id ?? "");
+                    exportOrder(order.id ?? "", order.order_name ?? "");
                   }}
                   colorScheme="green"
                   variant="solid"
                   m={2}
+                  maxWidth="200px"
                 >
                   Exporter en Excel
                 </Button>
-              </HStack>
+              </Stack>
             </Box>
           </Box>
         </Stack>

@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Th, Thead, Tr, Button, Box } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr, Text, Box } from "@chakra-ui/react";
 import OrderItem from "../../types/orderItem";
 import OrderItemRow from "./OrderItemRow";
 
@@ -26,10 +26,10 @@ const OrderItemsList = ({ orderItems, onDelete }: Props) => {
       <Table variant="striped" borderWidth="1px" borderRadius="lg" mb={4}>
         <Thead>
           <Tr>
-            <Th>Article</Th>
-            <Th>Nb pièces</Th>
-            <Th>Poid total</Th>
-            <Th>Prix total</Th>
+            <Th fontSize="medium">Article</Th>
+            <Th fontSize="medium">Nb pièces</Th>
+            <Th fontSize="medium">Poid total</Th>
+            <Th fontSize="medium">Prix total</Th>
             <Th />
           </Tr>
         </Thead>
@@ -44,8 +44,26 @@ const OrderItemsList = ({ orderItems, onDelete }: Props) => {
         </Tbody>
         <tfoot>
           <Tr>
-            <Td>Total</Td>
             <Td>
+              <Text fontSize="x-large" align="right">
+                Total
+              </Text>
+            </Td>
+            <Td whiteSpace="nowrap" width="0.1%">
+              {orderItems.reduce(
+                (acc, orderItem) => acc + (orderItem.total_number_pieces ?? 0),
+                0
+              ) + " pièces"}
+            </Td>
+            <Td whiteSpace="nowrap" width="0.1%">
+              {orderItems
+                .reduce(
+                  (acc, orderItem) => acc + (orderItem.total_weight ?? 0),
+                  0
+                )
+                .toFixed(2) + " kg"}
+            </Td>
+            <Td whiteSpace="nowrap" width="0.1%">
               {orderItems
                 .reduce(
                   (acc, orderItem) => acc + (orderItem.total_price ?? 0),
@@ -53,8 +71,6 @@ const OrderItemsList = ({ orderItems, onDelete }: Props) => {
                 )
                 .toFixed(2) + " DT"}
             </Td>
-            <Td />
-            <Td />
           </Tr>
         </tfoot>
       </Table>
