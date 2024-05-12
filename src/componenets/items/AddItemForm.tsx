@@ -73,7 +73,7 @@ const AddItemForm = ({ products, onSubmit, isOpen, onClose }: Props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="2xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Ajouter un produit</ModalHeader>
