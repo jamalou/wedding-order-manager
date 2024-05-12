@@ -15,6 +15,7 @@ import OrderFullCard from "./OrderFullCard";
 import { DataContext } from "../common/DataContext";
 import AddItemForm from "../items/AddItemForm";
 import Order from "../../types/order";
+import { set } from "react-hook-form";
 
 const OrderDetailsPage = () => {
   const { orderId } = useParams(); // Get the order ID from URL parameters
@@ -28,6 +29,7 @@ const OrderDetailsPage = () => {
     products,
     fetchOrders,
     orders,
+    loadingOrders,
     addOrderItem,
     deleteOrderItem,
     loadingItems,
@@ -38,22 +40,38 @@ const OrderDetailsPage = () => {
   const [orderItems, setOrderItems] = useState<OrderItem[] | undefined>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  useEffect(() => {
-    if (orders.length === 0) fetchOrders();
-    fetchOrderById(orderId);
-  }, [orderId]); // Fetch order details when orderId changes
 
-  const fetchOrderById = async (orderId: string | undefined) => {
-    setLoading(true);
-    const filterOrder = orders.find((order) => order.id === orderId);
-    if (filterOrder) {
-      setOrder(filterOrder);
-      setOrderItems(filterOrder.order_items);
-      setLoading(false);
+  useEffect(() => {
+    if (!loadingOrders && orders.length === 0) {
+      // Trigger fetching of orders if not already loaded
+      fetchOrders();
+    }
+  }, [loadingOrders, orders.length, fetchOrders]);
+
+  useEffect(() => {
+    if (loadingOrders) {
+      // Still loading the orders, so wait...
+      setLoading(true);
       return;
     }
-    setError("Commande introuvable");
-  };
+
+    // Try to fetch the order by ID from the already loaded orders
+    const fetchOrderById = async () => {
+      setLoading(true);
+      const filterOrder = orders.find((order) => order.id === orderId);
+
+      if (filterOrder) {
+        setOrder(filterOrder);
+        setOrderItems(filterOrder.order_items || []);
+      } else {
+        setError("Commande introuvable");
+      }
+
+      setLoading(false);
+    };
+
+    fetchOrderById();
+  }, [orders, orderId, loadingOrders]);
 
   if (loading) {
     return (

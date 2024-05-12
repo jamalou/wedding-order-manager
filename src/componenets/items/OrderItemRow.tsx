@@ -8,18 +8,26 @@ interface Props {
 }
 
 const OrderItemRow = ({ orderItem, onDelete }: Props) => {
+  function correctStorageUrl(url: string | undefined) {
+    if (url) {
+      return url.replace("storage.cloud.google.com", "storage.googleapis.com");
+    }
+    return "";
+  }
+
   return (
     <Tr key={orderItem.id}>
       <Td whiteSpace="nowrap">
         <HStack width="auto" overflow="hidden">
           <Image
-            src={orderItem.product_image_url}
-            alt="Product Image"
+            src={correctStorageUrl(orderItem.product_image_url)}
+            alt={orderItem.product_name}
             htmlWidth="60px" // Use htmlWidth and htmlHeight to control element size
             htmlHeight="60px"
             objectFit="contain"
             maxWidth="100%" // Ensure the image is responsive and adheres to the box constraints
             display="block"
+            loading="lazy"
           />
           <Text fontSize="xl" as="b" ml={5}>
             {orderItem.product_name}

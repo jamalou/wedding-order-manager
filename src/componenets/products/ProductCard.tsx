@@ -6,6 +6,13 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
+  function correctStorageUrl(url: string | undefined) {
+    if (url) {
+      return url.replace("storage.cloud.google.com", "storage.googleapis.com");
+    }
+    return "";
+  }
+
   return (
     <Card
       borderRadius="15px"
@@ -16,7 +23,12 @@ const ProductCard = ({ product }: Props) => {
     >
       <CardBody>
         <HStack>
-          <Image src={product.product_image_url} boxSize="50px" />
+          <Image
+            src={correctStorageUrl(product.product_image_url)}
+            alt={product.product_name}
+            loading="lazy"
+            boxSize="50px"
+          />
           <HStack justifyContent="space-between">
             <Text fontSize="2xl">{product.product_name}</Text>
             <Text>{product.product_price} DT</Text>
